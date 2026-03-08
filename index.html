@@ -39,6 +39,35 @@ body {
   -webkit-font-smoothing:antialiased;
 }
 
+/* Lang toggle */
+.lang-toggle {
+  position:fixed;
+  top:16px;
+  right:16px;
+  display:flex;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  z-index:100;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+}
+.lang-btn {
+  border:none;
+  background:none;
+  padding:7px 14px;
+  font-size:12px;
+  font-weight:600;
+  font-family:inherit;
+  cursor:pointer;
+  color:var(--text-dim);
+  transition:all 0.2s;
+}
+.lang-btn.active {
+  background:var(--green);
+  color:#fff;
+}
+
 /* Header */
 .hero {
   text-align:center;
@@ -435,33 +464,39 @@ body {
 </head>
 <body>
 
+<!-- Lang Toggle -->
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('pt')">PT-BR</button>
+</div>
+
 <!-- Hero -->
 <div class="hero">
   <div class="hero-badge">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    Directory Project
+    <span id="i-hero-badge">Directory Project</span>
   </div>
-  <h1>Pet Services<br>Online Directory</h1>
-  <p>A niche directory that ranks for "near me" pet service searches, monetizes passively via ads + listings + affiliate, and runs on autopilot after the build phase. Based on the Greg Isenberg / Frey Chu playbook ($273/day directory).</p>
+  <h1 id="i-hero-title">Pet Services<br>Online Directory</h1>
+  <p id="i-hero-desc">A niche directory that ranks for "near me" pet service searches, monetizes passively via ads + listings + affiliate, and runs on autopilot after the build phase. Based on the Greg Isenberg / Frey Chu playbook ($273/day directory).</p>
 </div>
 
 <!-- Key Metrics -->
 <div class="metrics">
   <div class="metric">
     <div class="metric-value" style="color:var(--green)">$150B+</div>
-    <div class="metric-label">Pet Industry Size</div>
+    <div class="metric-label" id="i-m1">Pet Industry Size</div>
   </div>
   <div class="metric">
     <div class="metric-value" style="color:var(--blue)">550K+</div>
-    <div class="metric-label">Monthly "Near Me" Searches</div>
+    <div class="metric-label" id="i-m2">Monthly "Near Me" Searches</div>
   </div>
   <div class="metric">
     <div class="metric-value" style="color:var(--accent)">$8-12</div>
-    <div class="metric-label">AdSense RPM (Pet Niche)</div>
+    <div class="metric-label" id="i-m3">AdSense RPM (Pet Niche)</div>
   </div>
   <div class="metric">
     <div class="metric-value" style="color:var(--orange)">0</div>
-    <div class="metric-label">Dominant Niche Directories</div>
+    <div class="metric-label" id="i-m4">Dominant Niche Directories</div>
   </div>
 </div>
 
@@ -469,45 +504,45 @@ body {
 <div class="section">
   <div class="section-badge" style="color:var(--green)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-    Revenue Route
+    <span id="i-rev-badge">Revenue Route</span>
   </div>
-  <h2>How the Money Flows</h2>
-  <p>End-to-end from zero to passive income. No cold outreach, no contacting anyone.</p>
+  <h2 id="i-rev-title">How the Money Flows</h2>
+  <p id="i-rev-desc">End-to-end from zero to passive income. No cold outreach, no contacting anyone.</p>
 
   <div class="route">
     <div class="route-step">
       <div class="route-dot" style="background:var(--green-soft);color:var(--green);border:2px solid var(--green-mid)">1</div>
       <div class="route-body">
-        <h4>Scrape Google Maps</h4>
-        <p>Automated script pulls 20K-40K pet service listings (name, address, phone, rating, hours) from Google Maps. Zero human contact. Cost: ~$50-100 via Outscraper.</p>
+        <h4 id="i-r1-title">Scrape Google Maps</h4>
+        <p id="i-r1-desc">Automated script pulls 20K-40K pet service listings (name, address, phone, rating, hours) from Google Maps. Zero human contact. Cost: ~$50-100 via Outscraper.</p>
       </div>
     </div>
     <div class="route-step">
       <div class="route-dot" style="background:var(--blue-soft);color:var(--blue);border:2px solid var(--blue-mid)">2</div>
       <div class="route-body">
-        <h4>Clean & Enrich with Claude Code</h4>
-        <p>Feed CSVs to Claude Code. Remove junk (closed, duplicates, off-niche). Enrich top listings by crawling their websites for services, specialties, photos. 50K raw &rarr; 20K clean.</p>
+        <h4 id="i-r2-title">Clean & Enrich with Claude Code</h4>
+        <p id="i-r2-desc">Feed CSVs to Claude Code. Remove junk (closed, duplicates, off-niche). Enrich top listings by crawling their websites for services, specialties, photos. 50K raw &rarr; 20K clean.</p>
       </div>
     </div>
     <div class="route-step">
       <div class="route-dot" style="background:var(--accent-soft);color:var(--accent);border:2px solid var(--accent-mid)">3</div>
       <div class="route-body">
-        <h4>Generate 2,000+ SEO Pages</h4>
-        <p>Programmatic pages: "Best Dog Groomers in Austin TX", "Pet Sitters in Chicago". Each page targets a "[service] in [city]" keyword. State pages rank for 1,000+ terms each.</p>
+        <h4 id="i-r3-title">Generate 2,000+ SEO Pages</h4>
+        <p id="i-r3-desc">Programmatic pages: "Best Dog Groomers in Austin TX", "Pet Sitters in Chicago". Each page targets a "[service] in [city]" keyword. State pages rank for 1,000+ terms each.</p>
       </div>
     </div>
     <div class="route-step">
       <div class="route-dot" style="background:var(--orange-soft);color:var(--orange);border:2px solid var(--orange-mid)">4</div>
       <div class="route-body">
-        <h4>Google Indexes &rarr; Traffic Arrives</h4>
-        <p>SEO compounds over 2-4 months. Organic traffic grows from 0 to 5K-15K visits/mo by month 6. No ads needed, no marketing budget.</p>
+        <h4 id="i-r4-title">Google Indexes &rarr; Traffic Arrives</h4>
+        <p id="i-r4-desc">SEO compounds over 2-4 months. Organic traffic grows from 0 to 5K-15K visits/mo by month 6. No ads needed, no marketing budget.</p>
       </div>
     </div>
     <div class="route-step">
       <div class="route-dot" style="background:var(--green-soft);color:var(--green);border:2px solid var(--green-mid)">5</div>
       <div class="route-body">
-        <h4>Revenue Streams Kick In</h4>
-        <p><strong>AdSense:</strong> $150-400/mo on traffic pages. <strong>Featured Listings:</strong> providers find their free listing, pay $99-199/yr to upgrade. <strong>Affiliate:</strong> pet insurance, Chewy, Rover = $150-300/mo. You never contact anyone &mdash; they come to you.</p>
+        <h4 id="i-r5-title">Revenue Streams Kick In</h4>
+        <p id="i-r5-desc"><strong>AdSense:</strong> $150-400/mo on traffic pages. <strong>Featured Listings:</strong> providers find their free listing, pay $99-199/yr to upgrade. <strong>Affiliate:</strong> pet insurance, Chewy, Rover = $150-300/mo. You never contact anyone &mdash; they come to you.</p>
       </div>
     </div>
   </div>
@@ -517,46 +552,46 @@ body {
 <div class="section">
   <div class="section-badge" style="color:var(--blue)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-    Timeline
+    <span id="i-tl-badge">Timeline</span>
   </div>
-  <h2>Build in 10 Weeks, Run Forever</h2>
-  <p>2-3 hours/day, 7 days/week. After month 4, it's autopilot.</p>
+  <h2 id="i-tl-title">Build in 10 Weeks, Run Forever</h2>
+  <p id="i-tl-desc">2-3 hours/day, 7 days/week. After month 4, it's autopilot.</p>
 
   <div class="timeline">
     <div class="tl-card" style="border-top:3px solid var(--green)">
-      <div class="tl-phase" style="color:var(--green)">Week 1-2</div>
-      <h4>Foundation</h4>
-      <p>Next.js + Supabase setup, DB schema, base UI components, Vercel deploy</p>
+      <div class="tl-phase" style="color:var(--green)" id="i-tl1-phase">Week 1-2</div>
+      <h4 id="i-tl1-title">Foundation</h4>
+      <p id="i-tl1-desc">Next.js + Supabase setup, DB schema, base UI components, Vercel deploy</p>
       <span class="tl-hours" style="background:var(--green-soft);color:var(--green)">20-25h</span>
     </div>
     <div class="tl-card" style="border-top:3px solid var(--blue)">
-      <div class="tl-phase" style="color:var(--blue)">Week 3</div>
-      <h4>Data Pipeline</h4>
-      <p>Scrape Google Maps, clean with Claude Code, import 20K+ listings to Supabase</p>
+      <div class="tl-phase" style="color:var(--blue)" id="i-tl2-phase">Week 3</div>
+      <h4 id="i-tl2-title">Data Pipeline</h4>
+      <p id="i-tl2-desc">Scrape Google Maps, clean with Claude Code, import 20K+ listings to Supabase</p>
       <span class="tl-hours" style="background:var(--blue-soft);color:var(--blue)">10-15h</span>
     </div>
     <div class="tl-card" style="border-top:3px solid var(--accent)">
-      <div class="tl-phase" style="color:var(--accent)">Week 4-5</div>
-      <h4>SEO Pages</h4>
-      <p>Generate state, city, category pages. Schema.org markup. Sitemap. Submit to Google.</p>
+      <div class="tl-phase" style="color:var(--accent)" id="i-tl3-phase">Week 4-5</div>
+      <h4 id="i-tl3-title">SEO Pages</h4>
+      <p id="i-tl3-desc">Generate state, city, category pages. Schema.org markup. Sitemap. Submit to Google.</p>
       <span class="tl-hours" style="background:var(--accent-soft);color:var(--accent)">15-20h</span>
     </div>
     <div class="tl-card" style="border-top:3px solid var(--orange)">
-      <div class="tl-phase" style="color:var(--orange)">Week 6</div>
-      <h4>Features</h4>
-      <p>Search, filters, "Claim Listing" flow, contact forms, mobile-responsive</p>
+      <div class="tl-phase" style="color:var(--orange)" id="i-tl4-phase">Week 6</div>
+      <h4 id="i-tl4-title">Features</h4>
+      <p id="i-tl4-desc">Search, filters, "Claim Listing" flow, contact forms, mobile-responsive</p>
       <span class="tl-hours" style="background:var(--orange-soft);color:var(--orange)">10-15h</span>
     </div>
     <div class="tl-card" style="border-top:3px solid var(--green)">
-      <div class="tl-phase" style="color:var(--green)">Week 7-8</div>
-      <h4>Monetize</h4>
-      <p>AdSense, Stripe for featured listings, affiliate links, lead capture forms</p>
+      <div class="tl-phase" style="color:var(--green)" id="i-tl5-phase">Week 7-8</div>
+      <h4 id="i-tl5-title">Monetize</h4>
+      <p id="i-tl5-desc">AdSense, Stripe for featured listings, affiliate links, lead capture forms</p>
       <span class="tl-hours" style="background:var(--green-soft);color:var(--green)">8-10h</span>
     </div>
     <div class="tl-card" style="border-top:3px solid var(--blue)">
-      <div class="tl-phase" style="color:var(--blue)">Week 8-10</div>
-      <h4>Launch & SEO</h4>
-      <p>Submit sitemap, write 10 pillar articles, Pinterest, set up analytics</p>
+      <div class="tl-phase" style="color:var(--blue)" id="i-tl6-phase">Week 8-10</div>
+      <h4 id="i-tl6-title">Launch & SEO</h4>
+      <p id="i-tl6-desc">Submit sitemap, write 10 pillar articles, Pinterest, set up analytics</p>
       <span class="tl-hours" style="background:var(--blue-soft);color:var(--blue)">5-8h</span>
     </div>
   </div>
@@ -566,19 +601,19 @@ body {
 <div class="section">
   <div class="section-badge" style="color:var(--green)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
-    Revenue Math
+    <span id="i-rm-badge">Revenue Math</span>
   </div>
-  <h2>Conservative Revenue Projection</h2>
-  <p>Multiple small streams stacked for resilient income.</p>
+  <h2 id="i-rm-title">Conservative Revenue Projection</h2>
+  <p id="i-rm-desc">Multiple small streams stacked for resilient income.</p>
 
   <table class="rev-table">
     <thead>
       <tr>
-        <th>Month</th>
-        <th>Ads</th>
-        <th>Featured Listings</th>
-        <th>Affiliate</th>
-        <th>Lead Gen</th>
+        <th id="i-th-month">Month</th>
+        <th id="i-th-ads">Ads</th>
+        <th id="i-th-feat">Featured Listings</th>
+        <th id="i-th-aff">Affiliate</th>
+        <th id="i-th-lead">Lead Gen</th>
         <th>Total</th>
       </tr>
     </thead>
@@ -597,33 +632,33 @@ body {
 <div class="section">
   <div class="section-badge" style="color:var(--accent)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg>
-    Geographic Targeting
+    <span id="i-geo-badge">Geographic Targeting</span>
   </div>
-  <h2>Priority Launch Markets</h2>
-  <p>Focus on cities with high search volume + zero niche directories. Validate with Ahrefs and Google before seeding data. Deep data in 20 cities beats thin data in 200.</p>
+  <h2 id="i-geo-title">Priority Launch Markets</h2>
+  <p id="i-geo-desc">Focus on cities with high search volume + zero niche directories. Validate with Ahrefs and Google before seeding data. Deep data in 20 cities beats thin data in 200.</p>
 
   <div class="geo-grid">
     <div class="geo-col">
-      <h4>USA (To Validate)</h4>
-      <div class="geo-city"><span>Austin, TX</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)">High potential</span></div>
-      <div class="geo-city"><span>Nashville, TN</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)">High potential</span></div>
-      <div class="geo-city"><span>Denver, CO</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)">High potential</span></div>
-      <div class="geo-city"><span>Portland, OR</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
-      <div class="geo-city"><span>Tampa, FL</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
-      <div class="geo-city"><span>Raleigh, NC</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
-      <div class="geo-city"><span>Charlotte, NC</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
-      <div class="geo-city"><span>Boise, ID</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
+      <h4 id="i-geo-usa">USA (To Validate)</h4>
+      <div class="geo-city"><span>Austin, TX</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)" id="i-gs1">High potential</span></div>
+      <div class="geo-city"><span>Nashville, TN</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)" id="i-gs2">High potential</span></div>
+      <div class="geo-city"><span>Denver, CO</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)" id="i-gs3">High potential</span></div>
+      <div class="geo-city"><span>Portland, OR</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs4">Medium</span></div>
+      <div class="geo-city"><span>Tampa, FL</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs5">Medium</span></div>
+      <div class="geo-city"><span>Raleigh, NC</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs6">Medium</span></div>
+      <div class="geo-city"><span>Charlotte, NC</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs7">Medium</span></div>
+      <div class="geo-city"><span>Boise, ID</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs8">Medium</span></div>
     </div>
     <div class="geo-col">
-      <h4>Brazil (To Validate)</h4>
-      <div class="geo-city"><span>S&atilde;o Paulo, SP</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)">High potential</span></div>
-      <div class="geo-city"><span>Curitiba, PR</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)">High potential</span></div>
-      <div class="geo-city"><span>Belo Horizonte, MG</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)">High potential</span></div>
-      <div class="geo-city"><span>Florian&oacute;polis, SC</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
-      <div class="geo-city"><span>Bras&iacute;lia, DF</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
-      <div class="geo-city"><span>Porto Alegre, RS</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
-      <div class="geo-city"><span>Campinas, SP</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
-      <div class="geo-city"><span>Goi&acirc;nia, GO</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)">Medium</span></div>
+      <h4 id="i-geo-br">Brazil (To Validate)</h4>
+      <div class="geo-city"><span>S&atilde;o Paulo, SP</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)" id="i-gs9">High potential</span></div>
+      <div class="geo-city"><span>Curitiba, PR</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)" id="i-gs10">High potential</span></div>
+      <div class="geo-city"><span>Belo Horizonte, MG</span><span class="geo-score" style="background:var(--green-soft);color:var(--green)" id="i-gs11">High potential</span></div>
+      <div class="geo-city"><span>Florian&oacute;polis, SC</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs12">Medium</span></div>
+      <div class="geo-city"><span>Bras&iacute;lia, DF</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs13">Medium</span></div>
+      <div class="geo-city"><span>Porto Alegre, RS</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs14">Medium</span></div>
+      <div class="geo-city"><span>Campinas, SP</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs15">Medium</span></div>
+      <div class="geo-city"><span>Goi&acirc;nia, GO</span><span class="geo-score" style="background:var(--blue-soft);color:var(--blue)" id="i-gs16">Medium</span></div>
     </div>
   </div>
 </div>
@@ -632,31 +667,31 @@ body {
 <div class="section">
   <div class="section-badge" style="color:var(--orange)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    Validate First
+    <span id="i-vt-badge">Validate First</span>
   </div>
-  <h2>Niche Validation Tools</h2>
-  <p>Before building, confirm demand exists. These are the tools used in the Greg Isenberg video to validate directory niches (funeral homes, senior living, GasBuddy). Use them to score our pet niche.</p>
+  <h2 id="i-vt-title">Niche Validation Tools</h2>
+  <p id="i-vt-desc">Before building, confirm demand exists. These are the tools used in the Greg Isenberg video to validate directory niches (funeral homes, senior living, GasBuddy). Use them to score our pet niche.</p>
 
   <div class="tools">
     <div class="tool-card">
-      <span class="tool-tag" style="background:var(--green-soft);color:var(--green)">Primary</span>
+      <span class="tool-tag" style="background:var(--green-soft);color:var(--green)" id="i-tt1">Primary</span>
       <h4>Ahrefs</h4>
-      <p>Keyword research + competitor traffic analysis. Find "near me" keywords with 30-100K searches and KD &lt; 20. Spy on competitor directories.</p>
+      <p id="i-tool1-desc">Keyword research + competitor traffic analysis. Find "near me" keywords with 30-100K searches and KD &lt; 20. Spy on competitor directories.</p>
     </div>
     <div class="tool-card">
-      <span class="tool-tag" style="background:var(--blue-soft);color:var(--blue)">Traffic</span>
+      <span class="tool-tag" style="background:var(--blue-soft);color:var(--blue)" id="i-tt2">Traffic</span>
       <h4>SimilarWeb</h4>
-      <p>Estimate competitor directory traffic. Used in the video to guess funeral home directory visits. Compare pet directory competitors.</p>
+      <p id="i-tool2-desc">Estimate competitor directory traffic. Used in the video to guess funeral home directory visits. Compare pet directory competitors.</p>
     </div>
     <div class="tool-card">
-      <span class="tool-tag" style="background:var(--accent-soft);color:var(--accent)">Free</span>
+      <span class="tool-tag" style="background:var(--accent-soft);color:var(--accent)" id="i-tt3">Free</span>
       <h4>Ubersuggest</h4>
-      <p>Free alternative for keyword volume and difficulty. Good for initial validation before paying for Ahrefs.</p>
+      <p id="i-tool3-desc">Free alternative for keyword volume and difficulty. Good for initial validation before paying for Ahrefs.</p>
     </div>
     <div class="tool-card">
-      <span class="tool-tag" style="background:var(--orange-soft);color:var(--orange)">Official</span>
+      <span class="tool-tag" style="background:var(--orange-soft);color:var(--orange)" id="i-tt4">Official</span>
       <h4>Google Keyword Planner</h4>
-      <p>Official Google search volumes. Free with Google Ads account. The most accurate volume data since it's from Google itself.</p>
+      <p id="i-tool4-desc">Official Google search volumes. Free with Google Ads account. The most accurate volume data since it's from Google itself.</p>
     </div>
   </div>
 </div>
@@ -665,43 +700,43 @@ body {
 <div class="section">
   <div class="section-badge" style="color:var(--accent)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-    Decisions
+    <span id="i-dec-badge">Decisions</span>
   </div>
-  <h2>What You Need to Decide</h2>
-  <p>Before starting Phase 1, settle these questions.</p>
+  <h2 id="i-dec-title">What You Need to Decide</h2>
+  <p id="i-dec-desc">Before starting Phase 1, settle these questions.</p>
 
   <div class="decisions">
     <div class="dec-card" style="border-color:var(--green-mid)">
       <div class="dec-icon" style="background:var(--green-soft)">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg>
       </div>
-      <h3>Which Market First?</h3>
-      <p>USA has higher search volumes and AdSense RPM. Brazil has less competition and you know the market. You could do both with i18n, but pick one to focus data seeding first.</p>
-      <span class="dec-tag" style="background:var(--green-soft);color:var(--green)">Must decide before Phase 2</span>
+      <h3 id="i-d1-title">Which Market First?</h3>
+      <p id="i-d1-desc">USA has higher search volumes and AdSense RPM. Brazil has less competition and you know the market. You could do both with i18n, but pick one to focus data seeding first.</p>
+      <span class="dec-tag" style="background:var(--green-soft);color:var(--green)" id="i-d1-tag">Must decide before Phase 2</span>
     </div>
     <div class="dec-card" style="border-color:var(--blue-mid)">
       <div class="dec-icon" style="background:var(--blue-soft)">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </div>
-      <h3>All Pet Services or One?</h3>
-      <p>Start with all 8 categories (groomers, vets, sitters, etc.) for more pages and broader SEO, or go deep on one first (e.g., only dog groomers) for faster quality.</p>
-      <span class="dec-tag" style="background:var(--blue-soft);color:var(--blue)">Recommendation: all 8</span>
+      <h3 id="i-d2-title">All Pet Services or One?</h3>
+      <p id="i-d2-desc">Start with all 8 categories (groomers, vets, sitters, etc.) for more pages and broader SEO, or go deep on one first (e.g., only dog groomers) for faster quality.</p>
+      <span class="dec-tag" style="background:var(--blue-soft);color:var(--blue)" id="i-d2-tag">Recommendation: all 8</span>
     </div>
     <div class="dec-card" style="border-color:var(--accent-mid)">
       <div class="dec-icon" style="background:var(--accent-soft)">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       </div>
-      <h3>Data Source Budget?</h3>
-      <p>Outscraper ($50-100) gives you 50K+ listings fast. Google Places API is cheaper but slower. Or scrape manually for free but it takes 10x longer.</p>
-      <span class="dec-tag" style="background:var(--accent-soft);color:var(--accent)">Recommendation: Outscraper $50-100</span>
+      <h3 id="i-d3-title">Data Source Budget?</h3>
+      <p id="i-d3-desc">Outscraper ($50-100) gives you 50K+ listings fast. Google Places API is cheaper but slower. Or scrape manually for free but it takes 10x longer.</p>
+      <span class="dec-tag" style="background:var(--accent-soft);color:var(--accent)" id="i-d3-tag">Recommendation: Outscraper $50-100</span>
     </div>
     <div class="dec-card" style="border-color:var(--orange-mid)">
       <div class="dec-icon" style="background:var(--orange-soft)">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
       </div>
-      <h3>Domain Name?</h3>
-      <p>Pick a domain that targets your niche keyword. Examples: PetServicesNearMe.com, FindMyGroomer.com, PetCareDirectory.com. Check availability and buy before starting.</p>
-      <span class="dec-tag" style="background:var(--orange-soft);color:var(--orange)">Must decide before Phase 1</span>
+      <h3 id="i-d4-title">Domain Name?</h3>
+      <p id="i-d4-desc">Pick a domain that targets your niche keyword. Examples: PetServicesNearMe.com, FindMyGroomer.com, PetCareDirectory.com. Check availability and buy before starting.</p>
+      <span class="dec-tag" style="background:var(--orange-soft);color:var(--orange)" id="i-d4-tag">Must decide before Phase 1</span>
     </div>
   </div>
 </div>
@@ -710,26 +745,237 @@ body {
 <div class="section">
   <div class="section-badge" style="color:var(--blue)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-    Pre-Launch
+    <span id="i-cl-badge">Pre-Launch</span>
   </div>
-  <h2>Before You Write Code</h2>
+  <h2 id="i-cl-title">Before You Write Code</h2>
 
   <div class="checklist">
-    <div class="check-item"><div class="check-box"></div><span>Validate keyword volumes with Ahrefs/Ubersuggest for "dog groomer near me", "vet near me", "pet sitter [city]"</span></div>
-    <div class="check-item"><div class="check-box"></div><span>Check SimilarWeb for competitor traffic (Rover.com, DogGroomerDirectory.com) &mdash; compare with funeral home example from the video</span></div>
-    <div class="check-item"><div class="check-box"></div><span>Google "[pet service] in [city]" for 10 target cities &mdash; confirm no dominant niche directory in results</span></div>
-    <div class="check-item"><div class="check-box"></div><span>Score top 20 cities using the opportunity scoring system (volume + competition + growth)</span></div>
-    <div class="check-item"><div class="check-box"></div><span>Decide: USA first, Brazil first, or both?</span></div>
-    <div class="check-item"><div class="check-box"></div><span>Buy domain name ($10-15/yr)</span></div>
-    <div class="check-item"><div class="check-box"></div><span>Create Outscraper account and test a small scrape (100 listings) to verify data quality</span></div>
-    <div class="check-item"><div class="check-box"></div><span>Set up Google Search Console + Google Analytics for the domain</span></div>
-    <div class="check-item"><div class="check-box"></div><span>Sign up for AdSense, Chewy affiliate, Lemonade pet insurance affiliate</span></div>
+    <div class="check-item"><div class="check-box"></div><span id="i-ck1">Validate keyword volumes with Ahrefs/Ubersuggest for "dog groomer near me", "vet near me", "pet sitter [city]"</span></div>
+    <div class="check-item"><div class="check-box"></div><span id="i-ck2">Check SimilarWeb for competitor traffic (Rover.com, DogGroomerDirectory.com) &mdash; compare with funeral home example from the video</span></div>
+    <div class="check-item"><div class="check-box"></div><span id="i-ck3">Google "[pet service] in [city]" for 10 target cities &mdash; confirm no dominant niche directory in results</span></div>
+    <div class="check-item"><div class="check-box"></div><span id="i-ck4">Score top 20 cities using the opportunity scoring system (volume + competition + growth)</span></div>
+    <div class="check-item"><div class="check-box"></div><span id="i-ck5">Decide: USA first, Brazil first, or both?</span></div>
+    <div class="check-item"><div class="check-box"></div><span id="i-ck6">Buy domain name ($10-15/yr)</span></div>
+    <div class="check-item"><div class="check-box"></div><span id="i-ck7">Create Outscraper account and test a small scrape (100 listings) to verify data quality</span></div>
+    <div class="check-item"><div class="check-box"></div><span id="i-ck8">Set up Google Search Console + Google Analytics for the domain</span></div>
+    <div class="check-item"><div class="check-box"></div><span id="i-ck9">Sign up for AdSense, Chewy affiliate, Lemonade pet insurance affiliate</span></div>
   </div>
 </div>
 
-<div class="footer">
+<div class="footer" id="i-footer">
   Pet Services Online Directory &mdash; Based on Greg Isenberg &amp; Frey Chu's $273/day directory playbook + ideas project research
 </div>
+
+<script>
+const T = {
+  en: {
+    'i-hero-badge': 'Directory Project',
+    'i-hero-title': 'Pet Services<br>Online Directory',
+    'i-hero-desc': 'A niche directory that ranks for "near me" pet service searches, monetizes passively via ads + listings + affiliate, and runs on autopilot after the build phase. Based on the Greg Isenberg / Frey Chu playbook ($273/day directory).',
+    'i-m1': 'Pet Industry Size',
+    'i-m2': 'Monthly "Near Me" Searches',
+    'i-m3': 'AdSense RPM (Pet Niche)',
+    'i-m4': 'Dominant Niche Directories',
+    'i-rev-badge': 'Revenue Route',
+    'i-rev-title': 'How the Money Flows',
+    'i-rev-desc': 'End-to-end from zero to passive income. No cold outreach, no contacting anyone.',
+    'i-r1-title': 'Scrape Google Maps',
+    'i-r1-desc': 'Automated script pulls 20K-40K pet service listings (name, address, phone, rating, hours) from Google Maps. Zero human contact. Cost: ~$50-100 via Outscraper.',
+    'i-r2-title': 'Clean & Enrich with Claude Code',
+    'i-r2-desc': 'Feed CSVs to Claude Code. Remove junk (closed, duplicates, off-niche). Enrich top listings by crawling their websites for services, specialties, photos. 50K raw \u2192 20K clean.',
+    'i-r3-title': 'Generate 2,000+ SEO Pages',
+    'i-r3-desc': 'Programmatic pages: "Best Dog Groomers in Austin TX", "Pet Sitters in Chicago". Each page targets a "[service] in [city]" keyword. State pages rank for 1,000+ terms each.',
+    'i-r4-title': 'Google Indexes \u2192 Traffic Arrives',
+    'i-r4-desc': 'SEO compounds over 2-4 months. Organic traffic grows from 0 to 5K-15K visits/mo by month 6. No ads needed, no marketing budget.',
+    'i-r5-title': 'Revenue Streams Kick In',
+    'i-r5-desc': '<strong>AdSense:</strong> $150-400/mo on traffic pages. <strong>Featured Listings:</strong> providers find their free listing, pay $99-199/yr to upgrade. <strong>Affiliate:</strong> pet insurance, Chewy, Rover = $150-300/mo. You never contact anyone \u2014 they come to you.',
+    'i-tl-badge': 'Timeline',
+    'i-tl-title': 'Build in 10 Weeks, Run Forever',
+    'i-tl-desc': '2-3 hours/day, 7 days/week. After month 4, it\'s autopilot.',
+    'i-tl1-phase': 'Week 1-2',
+    'i-tl1-title': 'Foundation',
+    'i-tl1-desc': 'Next.js + Supabase setup, DB schema, base UI components, Vercel deploy',
+    'i-tl2-phase': 'Week 3',
+    'i-tl2-title': 'Data Pipeline',
+    'i-tl2-desc': 'Scrape Google Maps, clean with Claude Code, import 20K+ listings to Supabase',
+    'i-tl3-phase': 'Week 4-5',
+    'i-tl3-title': 'SEO Pages',
+    'i-tl3-desc': 'Generate state, city, category pages. Schema.org markup. Sitemap. Submit to Google.',
+    'i-tl4-phase': 'Week 6',
+    'i-tl4-title': 'Features',
+    'i-tl4-desc': 'Search, filters, "Claim Listing" flow, contact forms, mobile-responsive',
+    'i-tl5-phase': 'Week 7-8',
+    'i-tl5-title': 'Monetize',
+    'i-tl5-desc': 'AdSense, Stripe for featured listings, affiliate links, lead capture forms',
+    'i-tl6-phase': 'Week 8-10',
+    'i-tl6-title': 'Launch & SEO',
+    'i-tl6-desc': 'Submit sitemap, write 10 pillar articles, Pinterest, set up analytics',
+    'i-rm-badge': 'Revenue Math',
+    'i-rm-title': 'Conservative Revenue Projection',
+    'i-rm-desc': 'Multiple small streams stacked for resilient income.',
+    'i-th-month': 'Month',
+    'i-th-ads': 'Ads',
+    'i-th-feat': 'Featured Listings',
+    'i-th-aff': 'Affiliate',
+    'i-th-lead': 'Lead Gen',
+    'i-geo-badge': 'Geographic Targeting',
+    'i-geo-title': 'Priority Launch Markets',
+    'i-geo-desc': 'Focus on cities with high search volume + zero niche directories. Validate with Ahrefs and Google before seeding data. Deep data in 20 cities beats thin data in 200.',
+    'i-geo-usa': 'USA (To Validate)',
+    'i-geo-br': 'Brazil (To Validate)',
+    'i-gs1': 'High potential', 'i-gs2': 'High potential', 'i-gs3': 'High potential',
+    'i-gs4': 'Medium', 'i-gs5': 'Medium', 'i-gs6': 'Medium', 'i-gs7': 'Medium', 'i-gs8': 'Medium',
+    'i-gs9': 'High potential', 'i-gs10': 'High potential', 'i-gs11': 'High potential',
+    'i-gs12': 'Medium', 'i-gs13': 'Medium', 'i-gs14': 'Medium', 'i-gs15': 'Medium', 'i-gs16': 'Medium',
+    'i-vt-badge': 'Validate First',
+    'i-vt-title': 'Niche Validation Tools',
+    'i-vt-desc': 'Before building, confirm demand exists. These are the tools used in the Greg Isenberg video to validate directory niches (funeral homes, senior living, GasBuddy). Use them to score our pet niche.',
+    'i-tt1': 'Primary', 'i-tt2': 'Traffic', 'i-tt3': 'Free', 'i-tt4': 'Official',
+    'i-tool1-desc': 'Keyword research + competitor traffic analysis. Find "near me" keywords with 30-100K searches and KD < 20. Spy on competitor directories.',
+    'i-tool2-desc': 'Estimate competitor directory traffic. Used in the video to guess funeral home directory visits. Compare pet directory competitors.',
+    'i-tool3-desc': 'Free alternative for keyword volume and difficulty. Good for initial validation before paying for Ahrefs.',
+    'i-tool4-desc': 'Official Google search volumes. Free with Google Ads account. The most accurate volume data since it\'s from Google itself.',
+    'i-dec-badge': 'Decisions',
+    'i-dec-title': 'What You Need to Decide',
+    'i-dec-desc': 'Before starting Phase 1, settle these questions.',
+    'i-d1-title': 'Which Market First?',
+    'i-d1-desc': 'USA has higher search volumes and AdSense RPM. Brazil has less competition and you know the market. You could do both with i18n, but pick one to focus data seeding first.',
+    'i-d1-tag': 'Must decide before Phase 2',
+    'i-d2-title': 'All Pet Services or One?',
+    'i-d2-desc': 'Start with all 8 categories (groomers, vets, sitters, etc.) for more pages and broader SEO, or go deep on one first (e.g., only dog groomers) for faster quality.',
+    'i-d2-tag': 'Recommendation: all 8',
+    'i-d3-title': 'Data Source Budget?',
+    'i-d3-desc': 'Outscraper ($50-100) gives you 50K+ listings fast. Google Places API is cheaper but slower. Or scrape manually for free but it takes 10x longer.',
+    'i-d3-tag': 'Recommendation: Outscraper $50-100',
+    'i-d4-title': 'Domain Name?',
+    'i-d4-desc': 'Pick a domain that targets your niche keyword. Examples: PetServicesNearMe.com, FindMyGroomer.com, PetCareDirectory.com. Check availability and buy before starting.',
+    'i-d4-tag': 'Must decide before Phase 1',
+    'i-cl-badge': 'Pre-Launch',
+    'i-cl-title': 'Before You Write Code',
+    'i-ck1': 'Validate keyword volumes with Ahrefs/Ubersuggest for "dog groomer near me", "vet near me", "pet sitter [city]"',
+    'i-ck2': 'Check SimilarWeb for competitor traffic (Rover.com, DogGroomerDirectory.com) \u2014 compare with funeral home example from the video',
+    'i-ck3': 'Google "[pet service] in [city]" for 10 target cities \u2014 confirm no dominant niche directory in results',
+    'i-ck4': 'Score top 20 cities using the opportunity scoring system (volume + competition + growth)',
+    'i-ck5': 'Decide: USA first, Brazil first, or both?',
+    'i-ck6': 'Buy domain name ($10-15/yr)',
+    'i-ck7': 'Create Outscraper account and test a small scrape (100 listings) to verify data quality',
+    'i-ck8': 'Set up Google Search Console + Google Analytics for the domain',
+    'i-ck9': 'Sign up for AdSense, Chewy affiliate, Lemonade pet insurance affiliate',
+    'i-footer': 'Pet Services Online Directory \u2014 Based on Greg Isenberg & Frey Chu\'s $273/day directory playbook + ideas project research'
+  },
+  pt: {
+    'i-hero-badge': 'Projeto de Diret\u00f3rio',
+    'i-hero-title': 'Servi\u00e7os Pet<br>Diret\u00f3rio Online',
+    'i-hero-desc': 'Um diret\u00f3rio de nicho que ranqueia para buscas "perto de mim" de servi\u00e7os pet, monetiza passivamente via an\u00fancios + listagens + afiliados, e roda no piloto autom\u00e1tico ap\u00f3s a fase de constru\u00e7\u00e3o. Baseado no playbook de Greg Isenberg / Frey Chu (diret\u00f3rio de $273/dia).',
+    'i-m1': 'Tamanho da Ind\u00fastria Pet',
+    'i-m2': 'Buscas Mensais "Perto de Mim"',
+    'i-m3': 'RPM AdSense (Nicho Pet)',
+    'i-m4': 'Diret\u00f3rios de Nicho Dominantes',
+    'i-rev-badge': 'Rota de Receita',
+    'i-rev-title': 'Como o Dinheiro Flui',
+    'i-rev-desc': 'Do zero \u00e0 renda passiva de ponta a ponta. Sem prospec\u00e7\u00e3o, sem contatar ningu\u00e9m.',
+    'i-r1-title': 'Raspar Google Maps',
+    'i-r1-desc': 'Script automatizado puxa 20K-40K listagens de servi\u00e7os pet (nome, endere\u00e7o, telefone, avalia\u00e7\u00e3o, hor\u00e1rios) do Google Maps. Zero contato humano. Custo: ~$50-100 via Outscraper.',
+    'i-r2-title': 'Limpar e Enriquecer com Claude Code',
+    'i-r2-desc': 'Alimentar CSVs no Claude Code. Remover lixo (fechados, duplicados, fora do nicho). Enriquecer listagens top rastreando seus sites para servi\u00e7os, especialidades, fotos. 50K bruto \u2192 20K limpo.',
+    'i-r3-title': 'Gerar 2.000+ P\u00e1ginas SEO',
+    'i-r3-desc': 'P\u00e1ginas program\u00e1ticas: "Melhores Pet Shops em S\u00e3o Paulo", "Veterin\u00e1rios em Curitiba". Cada p\u00e1gina mira uma keyword "[servi\u00e7o] em [cidade]". P\u00e1ginas de estado ranqueiam para 1.000+ termos cada.',
+    'i-r4-title': 'Google Indexa \u2192 Tr\u00e1fego Chega',
+    'i-r4-desc': 'SEO se acumula em 2-4 meses. Tr\u00e1fego org\u00e2nico cresce de 0 para 5K-15K visitas/m\u00eas at\u00e9 o m\u00eas 6. Sem an\u00fancios pagos, sem or\u00e7amento de marketing.',
+    'i-r5-title': 'Fontes de Receita Ativam',
+    'i-r5-desc': '<strong>AdSense:</strong> $150-400/m\u00eas em p\u00e1ginas de tr\u00e1fego. <strong>Listagens Destaque:</strong> prestadores encontram sua listagem gratuita, pagam $99-199/ano para upgrade. <strong>Afiliados:</strong> seguro pet, Cobasi, Pet Love = $150-300/m\u00eas. Voc\u00ea nunca contata ningu\u00e9m \u2014 eles v\u00eam at\u00e9 voc\u00ea.',
+    'i-tl-badge': 'Cronograma',
+    'i-tl-title': 'Construa em 10 Semanas, Rode Para Sempre',
+    'i-tl-desc': '2-3 horas/dia, 7 dias/semana. Ap\u00f3s o m\u00eas 4, \u00e9 piloto autom\u00e1tico.',
+    'i-tl1-phase': 'Semana 1-2',
+    'i-tl1-title': 'Funda\u00e7\u00e3o',
+    'i-tl1-desc': 'Setup Next.js + Supabase, schema do banco, componentes base de UI, deploy na Vercel',
+    'i-tl2-phase': 'Semana 3',
+    'i-tl2-title': 'Pipeline de Dados',
+    'i-tl2-desc': 'Raspar Google Maps, limpar com Claude Code, importar 20K+ listagens no Supabase',
+    'i-tl3-phase': 'Semana 4-5',
+    'i-tl3-title': 'P\u00e1ginas SEO',
+    'i-tl3-desc': 'Gerar p\u00e1ginas de estado, cidade, categoria. Markup Schema.org. Sitemap. Submeter ao Google.',
+    'i-tl4-phase': 'Semana 6',
+    'i-tl4-title': 'Funcionalidades',
+    'i-tl4-desc': 'Busca, filtros, fluxo "Reivindique sua Listagem", formul\u00e1rios de contato, responsivo',
+    'i-tl5-phase': 'Semana 7-8',
+    'i-tl5-title': 'Monetizar',
+    'i-tl5-desc': 'AdSense, Stripe para listagens destaque, links de afiliados, formul\u00e1rios de capta\u00e7\u00e3o',
+    'i-tl6-phase': 'Semana 8-10',
+    'i-tl6-title': 'Lan\u00e7amento e SEO',
+    'i-tl6-desc': 'Submeter sitemap, escrever 10 artigos pilar, Pinterest, configurar analytics',
+    'i-rm-badge': 'Matem\u00e1tica da Receita',
+    'i-rm-title': 'Proje\u00e7\u00e3o Conservadora de Receita',
+    'i-rm-desc': 'M\u00faltiplas pequenas fontes empilhadas para renda resiliente.',
+    'i-th-month': 'M\u00eas',
+    'i-th-ads': 'An\u00fancios',
+    'i-th-feat': 'Listagens Destaque',
+    'i-th-aff': 'Afiliados',
+    'i-th-lead': 'Gera\u00e7\u00e3o de Leads',
+    'i-geo-badge': 'Segmenta\u00e7\u00e3o Geogr\u00e1fica',
+    'i-geo-title': 'Mercados Priorit\u00e1rios de Lan\u00e7amento',
+    'i-geo-desc': 'Foque em cidades com alto volume de busca + zero diret\u00f3rios de nicho. Valide com Ahrefs e Google antes de semear dados. Dados profundos em 20 cidades vencem dados rasos em 200.',
+    'i-geo-usa': 'EUA (A Validar)',
+    'i-geo-br': 'Brasil (A Validar)',
+    'i-gs1': 'Alto potencial', 'i-gs2': 'Alto potencial', 'i-gs3': 'Alto potencial',
+    'i-gs4': 'M\u00e9dio', 'i-gs5': 'M\u00e9dio', 'i-gs6': 'M\u00e9dio', 'i-gs7': 'M\u00e9dio', 'i-gs8': 'M\u00e9dio',
+    'i-gs9': 'Alto potencial', 'i-gs10': 'Alto potencial', 'i-gs11': 'Alto potencial',
+    'i-gs12': 'M\u00e9dio', 'i-gs13': 'M\u00e9dio', 'i-gs14': 'M\u00e9dio', 'i-gs15': 'M\u00e9dio', 'i-gs16': 'M\u00e9dio',
+    'i-vt-badge': 'Valide Primeiro',
+    'i-vt-title': 'Ferramentas de Valida\u00e7\u00e3o de Nicho',
+    'i-vt-desc': 'Antes de construir, confirme que a demanda existe. Estas s\u00e3o as ferramentas usadas no v\u00eddeo de Greg Isenberg para validar nichos de diret\u00f3rios (funer\u00e1rias, moradia s\u00eanior, GasBuddy). Use-as para pontuar nosso nicho pet.',
+    'i-tt1': 'Principal', 'i-tt2': 'Tr\u00e1fego', 'i-tt3': 'Gratuito', 'i-tt4': 'Oficial',
+    'i-tool1-desc': 'Pesquisa de keywords + an\u00e1lise de tr\u00e1fego de concorrentes. Encontre keywords "perto de mim" com 30-100K buscas e KD < 20. Espione diret\u00f3rios concorrentes.',
+    'i-tool2-desc': 'Estime tr\u00e1fego de diret\u00f3rios concorrentes. Usado no v\u00eddeo para estimar visitas do diret\u00f3rio de funer\u00e1rias. Compare concorrentes de diret\u00f3rios pet.',
+    'i-tool3-desc': 'Alternativa gratuita para volume e dificuldade de keywords. Bom para valida\u00e7\u00e3o inicial antes de pagar pelo Ahrefs.',
+    'i-tool4-desc': 'Volumes oficiais de busca do Google. Gratuito com conta Google Ads. Os dados de volume mais precisos pois vem do pr\u00f3prio Google.',
+    'i-dec-badge': 'Decis\u00f5es',
+    'i-dec-title': 'O Que Voc\u00ea Precisa Decidir',
+    'i-dec-desc': 'Antes de come\u00e7ar a Fase 1, resolva estas quest\u00f5es.',
+    'i-d1-title': 'Qual Mercado Primeiro?',
+    'i-d1-desc': 'EUA tem volumes de busca e RPM do AdSense maiores. Brasil tem menos concorr\u00eancia e voc\u00ea conhece o mercado. Voc\u00ea pode fazer ambos com i18n, mas escolha um para focar a semeadura de dados primeiro.',
+    'i-d1-tag': 'Decidir antes da Fase 2',
+    'i-d2-title': 'Todos os Servi\u00e7os Pet ou Apenas Um?',
+    'i-d2-desc': 'Come\u00e7ar com todas as 8 categorias (groomers, vets, sitters, etc.) para mais p\u00e1ginas e SEO mais amplo, ou aprofundar em uma primeiro (ex: s\u00f3 pet shops) para qualidade mais r\u00e1pida.',
+    'i-d2-tag': 'Recomenda\u00e7\u00e3o: todas as 8',
+    'i-d3-title': 'Or\u00e7amento de Fonte de Dados?',
+    'i-d3-desc': 'Outscraper ($50-100) d\u00e1 50K+ listagens r\u00e1pido. Google Places API \u00e9 mais barato mas mais lento. Ou raspar manualmente de gra\u00e7a mas leva 10x mais tempo.',
+    'i-d3-tag': 'Recomenda\u00e7\u00e3o: Outscraper $50-100',
+    'i-d4-title': 'Nome de Dom\u00ednio?',
+    'i-d4-desc': 'Escolha um dom\u00ednio que mire sua keyword de nicho. Exemplos: PetServicesNearMe.com, FindMyGroomer.com, PetCareDirectory.com. Verifique disponibilidade e compre antes de come\u00e7ar.',
+    'i-d4-tag': 'Decidir antes da Fase 1',
+    'i-cl-badge': 'Pr\u00e9-Lan\u00e7amento',
+    'i-cl-title': 'Antes de Escrever C\u00f3digo',
+    'i-ck1': 'Validar volumes de keywords com Ahrefs/Ubersuggest para "pet shop perto de mim", "veterin\u00e1rio perto de mim", "pet sitter [cidade]"',
+    'i-ck2': 'Checar SimilarWeb para tr\u00e1fego de concorrentes (Rover.com, DogGroomerDirectory.com) \u2014 comparar com exemplo de funer\u00e1rias do v\u00eddeo',
+    'i-ck3': 'Pesquisar "[servi\u00e7o pet] em [cidade]" para 10 cidades-alvo \u2014 confirmar que n\u00e3o h\u00e1 diret\u00f3rio de nicho dominante nos resultados',
+    'i-ck4': 'Pontuar top 20 cidades usando o sistema de pontua\u00e7\u00e3o de oportunidade (volume + concorr\u00eancia + crescimento)',
+    'i-ck5': 'Decidir: EUA primeiro, Brasil primeiro, ou ambos?',
+    'i-ck6': 'Comprar nome de dom\u00ednio ($10-15/ano)',
+    'i-ck7': 'Criar conta no Outscraper e testar uma raspagem pequena (100 listagens) para verificar qualidade dos dados',
+    'i-ck8': 'Configurar Google Search Console + Google Analytics para o dom\u00ednio',
+    'i-ck9': 'Cadastrar no AdSense, afiliado Cobasi, afiliado seguro pet',
+    'i-footer': 'Diret\u00f3rio Online de Servi\u00e7os Pet \u2014 Baseado no playbook de diret\u00f3rio de $273/dia de Greg Isenberg & Frey Chu + pesquisa do projeto ideas'
+  }
+};
+
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  const strings = T[lang];
+  for (const [id, text] of Object.entries(strings)) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = text;
+  }
+  localStorage.setItem('pet-dir-lang', lang);
+}
+
+// Init from localStorage
+const saved = localStorage.getItem('pet-dir-lang');
+if (saved) setLang(saved);
+</script>
 
 </body>
 </html>
